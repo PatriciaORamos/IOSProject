@@ -34,6 +34,7 @@ class GameViewController: UIViewController {
     var hCardsArray : [UIImageView] = []
     var pCardsArray : [UIImageView] = []
     
+    var numberStay = 2
     var numberHit = 2
     var scorePlayer = 0
     var scoreHome = 0
@@ -60,31 +61,69 @@ class GameViewController: UIViewController {
         var number = 0
         while number < 4 {
             let card = Int.random(in: 1...52)
-            let value = getValueCard(card:card)
+            var cardValue = getValueCard(card:card)
             if( number < 2 ) {
                 hCardsArray[number].image = UIImage(named:"card\(card)")
-                scoreHome = scoreHome + value
+                //determina value card when card A
+                if cardValue == 1  {
+                    if scoreHome == 10 {
+                        cardValue =  11;
+                    }
+                }
+                calcScore(cardValue: cardValue, typePlayer: "H")
+                result()
             } else {
                 pCardsArray[number-2].image = UIImage(named:"card\(card)")
-                scorePlayer = scorePlayer + value
+                
+                //determina value card when card A
+                if cardValue == 1  {
+                    if scorePlayer == 10 {
+                        cardValue =  11;
+                    }
+                }
+                calcScore(cardValue: cardValue, typePlayer: "P")
+                result()
             }
             number += 1
-           
         }
-        hscrLbl.text = "\(scoreHome)"
-        pscrLbl.text = "\(scorePlayer)"
+
     }
     
     @IBAction func hitBtn(_ sender: UIButton) {
-        if numberHit <= 5 {
+        if numberHit <= 5 && scorePlayer <= 21{
             let card = Int.random(in: 1...52)
             pCardsArray[numberHit].image = UIImage(named:"card\(card)")
+            
+            var cardValue = getValueCard(card:card)
+            //determina value card when card A
+            if cardValue == 1  {
+                if scorePlayer == 10 {
+                    cardValue =  11;
+                }
+            }
+            calcScore(cardValue: cardValue, typePlayer: "P")
+            result()
             numberHit = numberHit + 1
         }
     }
     
     @IBAction func stayBtn(_ sender: UIButton) {
-        
+        while numberStay <= 5 && scoreHome <= 21 {
+            let card = Int.random(in: 1...52)
+            hCardsArray[numberStay].image = UIImage(named:"card\(card)")
+            
+            var cardValue = getValueCard(card:card)
+            //determina value card when card A
+            if cardValue == 1  {
+                if scoreHome == 10 {
+                    cardValue =  11;
+                }
+            }
+            
+            calcScore(cardValue: cardValue, typePlayer: "H")
+            result()
+            numberStay = numberStay + 1
+        }
     }
     
     /*
@@ -96,6 +135,95 @@ class GameViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+   
+   
+    func bust(){
+        if scoreHome > 21 {
+            let alert = UIAlertController(title: "BUST", message: "YOU WIN...", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
+            self.present(alert, animated: true, completion: nil)
+        }
+        if scorePlayer > 21 {
+            let alert = UIAlertController(title: "BUST", message: "YOU LOSE...", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func blackjack() {
+        if scoreHome == 21 {
+            let alert = UIAlertController(title: "BLACKJACK", message: "YOU LOSE...", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
+            self.present(alert, animated: true, completion: nil)
+        }
+        if scorePlayer == 21 {
+            let alert = UIAlertController(title: "BLACKJACK", message: "YOU WIN...", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func result() {
+        bust()
+        blackjack()
+        
+        //calcular os pontos
+        
+    }
+    
+    func reset() {
+        hptsLbl.text = "0"
+        hscrLbl.text = "0"
+        pptsLbl.text = "0"
+        pscrLbl.text = "0"
+
+        numberStay = 2
+        numberHit = 2
+        scorePlayer = 0
+        scoreHome = 0
+        
+        var count = 0
+        for hcard in hCardsArray {
+            if count <= 1 {
+                hcard.image = UIImage(named:"cardback-red")
+            } else {
+                hcard.image = UIImage(named:"")
+            }
+            count = count + 1
+        }
+        
+        var countH = 0
+        for hcard in pCardsArray {
+            if countH <= 1 {
+                hcard.image = UIImage(named:"cardback-red")
+            } else {
+                hcard.image = UIImage(named:"")
+            }
+            countH = countH + 1
+        }
+        
+    }
+       
+    func calcPtsHome(typePlayer: String) {
+        if typePlayer == "H" {
+            pontsHome = pontsHome + 50
+            hptsLbl.text = "\(pontsHome)"
+        } else {
+            pontsPlayer = pontsPlayer + 50
+            pptsLbl.text = "\(pontsPlayer)"
+        }
+    }
+    
+    func calcScore(cardValue: Int, typePlayer: String ) {
+        if typePlayer == "H" {
+            scoreHome = scoreHome + cardValue
+            hscrLbl.text = "\(scoreHome)"
+        } else {
+            scorePlayer = scorePlayer + cardValue
+            pscrLbl.text = "\(scorePlayer)"
+        }
+    }
     
     func getValueCard(card: Int)-> Int{
         switch (card) {
@@ -121,7 +249,5 @@ class GameViewController: UIViewController {
             return 1;
         default: return 0
         }
-        
     }
-
 }
