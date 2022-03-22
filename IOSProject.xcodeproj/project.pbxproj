@@ -14,6 +14,8 @@
 		911F88C127E8B4EF00EAF7E5 /* IOSProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 911F88BF27E8B4EF00EAF7E5 /* IOSProject.xcdatamodeld */; };
 		911F88C327E8B50800EAF7E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 911F88C227E8B50800EAF7E5 /* Assets.xcassets */; };
 		911F88C627E8B50800EAF7E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 911F88C427E8B50800EAF7E5 /* LaunchScreen.storyboard */; };
+		911F88CF27E8B53E00EAF7E5 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911F88CE27E8B53E00EAF7E5 /* GameViewController.swift */; };
+		911F88D327E8B55300EAF7E5 /* CreditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911F88D227E8B55300EAF7E5 /* CreditViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		911F88C227E8B50800EAF7E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		911F88C527E8B50800EAF7E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		911F88C727E8B50800EAF7E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		911F88CE27E8B53E00EAF7E5 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		911F88D227E8B55300EAF7E5 /* CreditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,11 +65,13 @@
 				911F88B627E8B4EF00EAF7E5 /* AppDelegate.swift */,
 				911F88B827E8B4EF00EAF7E5 /* SceneDelegate.swift */,
 				911F88BA27E8B4EF00EAF7E5 /* ViewController.swift */,
+				911F88CE27E8B53E00EAF7E5 /* GameViewController.swift */,
+				911F88D227E8B55300EAF7E5 /* CreditViewController.swift */,
 				911F88BC27E8B4EF00EAF7E5 /* Main.storyboard */,
 				911F88C227E8B50800EAF7E5 /* Assets.xcassets */,
 				911F88C427E8B50800EAF7E5 /* LaunchScreen.storyboard */,
-				911F88C727E8B50800EAF7E5 /* Info.plist */,
 				911F88BF27E8B4EF00EAF7E5 /* IOSProject.xcdatamodeld */,
+				911F88C727E8B50800EAF7E5 /* Info.plist */,
 			);
 			path = IOSProject;
 			sourceTree = "<group>";
@@ -140,10 +146,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				911F88CF27E8B53E00EAF7E5 /* GameViewController.swift in Sources */,
 				911F88BB27E8B4EF00EAF7E5 /* ViewController.swift in Sources */,
 				911F88C127E8B4EF00EAF7E5 /* IOSProject.xcdatamodeld in Sources */,
 				911F88B727E8B4EF00EAF7E5 /* AppDelegate.swift in Sources */,
 				911F88B927E8B4EF00EAF7E5 /* SceneDelegate.swift in Sources */,
+				911F88D327E8B55300EAF7E5 /* CreditViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
