@@ -20,6 +20,7 @@ class ViewController: UIViewController {
 
     @IBAction func playBtn(_ sender: UIButton) {
         let controller = storyboard?.instantiateViewController(identifier: "GameViewController") as! GameViewController
+        // Player can enter name in app
         controller.name = nameTxt.text
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true, completion:nil)

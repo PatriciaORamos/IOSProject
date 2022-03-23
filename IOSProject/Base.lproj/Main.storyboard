@@ -229,6 +229,7 @@
                         <outlet property="pnameLbl" destination="miw-Pd-BdW" id="ubc-VL-4Tb"/>
                         <outlet property="pptsLbl" destination="bGH-eg-IyI" id="wSS-iA-F89"/>
                         <outlet property="pscrLbl" destination="QAT-v0-Ei9" id="i9C-Xn-v8j"/>
+                        <outlet property="startBtn" destination="8sF-jm-Rvi" id="AKb-3A-Stx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gah-fh-ScT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -238,7 +239,6 @@
         <!--Credit View Controller-->
         <scene sceneID="omA-Ux-sKo">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ibn-S6-FLx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="CreditViewController" id="eRb-vW-jwX" customClass="CreditViewController" customModule="IOSProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IAM-Bw-NdN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -264,6 +264,7 @@
                         </constraints>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ibn-S6-FLx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1689.8550724637682" y="103.79464285714285"/>
         </scene>
