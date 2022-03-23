@@ -42,7 +42,6 @@ class GameViewController: UIViewController {
     var scorePlayer = 0
     var scoreHome = 0
     var pontsPlayer = 0
-    var pontsHome = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,9 +49,10 @@ class GameViewController: UIViewController {
             pnameLbl.text = name
         }
         
-        hptsLbl.text = "0"
-        hscrLbl.text = "0"
+
         pptsLbl.text = "0"
+        
+        hscrLbl.text = "0"
         pscrLbl.text = "0"
         
         hCardsArray = [ hcard1, hcard2, hcard3, hcard4, hcard5, hcard6]
@@ -61,7 +61,7 @@ class GameViewController: UIViewController {
     }
     
     
-   /**
+   /*
         When the start button is pressed, randomize entries in card array, and the 2 house cards are shown (based on the 1st 2 entries in the array) and the first 2 player cards are shown.
      */
     @IBAction func startBtn(_ sender: UIButton) {
@@ -83,7 +83,7 @@ class GameViewController: UIViewController {
         }
     }
     
-    /**
+    /*
         Each time the player presses the "hit" button, a new card is shown (next value from the array) and the player total is adjusted the score is checked for "bust"
      */
     @IBAction func hitBtn(_ sender: UIButton) {
@@ -97,7 +97,7 @@ class GameViewController: UIViewController {
         }
     }
     
-    /**
+    /*
         When the "stay" button is pressed, the "house" starts drawing cards from the array from where the player left off. After each card is shown, the house score is adjusted and checked. Card are continually drawn until the house score is equal or greater to the player score.
      */
     @IBAction func stayBtn(_ sender: UIButton) {
@@ -119,6 +119,7 @@ class GameViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
             self.present(alert, animated: true, completion: nil)
             //If the house score is > 21, the house busts and the player is awarded 50pts.
+            pontsPlayer = pontsPlayer + 50
         }
         if scorePlayer > 21 {
             let alert = UIAlertController(title: "YOU LOSE", message: "Try again, you BUST..", preferredStyle: UIAlertController.Style.alert)
@@ -126,20 +127,23 @@ class GameViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             
             //If the player busts or the house score is >= player score (without busting), 50pts is deducted from the player score.
+            pontsPlayer = pontsPlayer - 50
         }
         
         if scoreHome == 21 {
             let alert = UIAlertController(title: "YOU LOSE", message: "Try again, Home BLACKJACK...", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
             self.present(alert, animated: true, completion: nil)
-            
+            pontsPlayer = pontsPlayer - 50
         }
         
         if scorePlayer == 21 {
             let alert = UIAlertController(title: "YOU WIN - BLACKJACK", message: "Congratulation...", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
             self.present(alert, animated: true, completion: nil)
+            pontsPlayer = pontsPlayer + 50
         }
+        pptsLbl.text = "\(pontsPlayer)"
     }
 
     
@@ -149,10 +153,12 @@ class GameViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
             self.present(alert, animated: true, completion: nil)
             //If the player busts or the house score is >= player score (without busting), 50pts is deducted from the player score.
+            pontsPlayer = pontsPlayer - 50
+            pptsLbl.text = "\(pontsPlayer)"
         }
     }
     
-    /**
+    /*
         An alert is shown announcing the winner, the screen is reset when the dismiss button is pressed, and the start button appears on the screen
      
         Keep track of the score until the player closes the app
@@ -190,24 +196,23 @@ class GameViewController: UIViewController {
     }
        
     func calcScore(cardValue: Int, typePlayer: String ) {
-        var cardValue = cardValue
         if typePlayer == "H" {
-            if cardValue == 1 && scoreHome == 10 {
-                cardValue = 11;
+            if cardValue == 1 {
+                if ( scoreHome <= 10)  {
+                    scoreHome = scoreHome + 11
+                }
+            } else {
+                scoreHome = scoreHome + cardValue
             }
-            if cardValue == 10 && scoreHome == 1 {
-                scoreHome = 11;
-            }
-            scoreHome = scoreHome + cardValue
             hscrLbl.text = "\(scoreHome)"
         } else {
-            if cardValue == 1 && scorePlayer == 10 {
-                cardValue = 11;
+            if cardValue == 1 {
+                if ( scorePlayer <= 10)  { 
+                    scorePlayer = scorePlayer + 11
+                }
+            } else {
+                scorePlayer = scorePlayer + cardValue
             }
-            if cardValue == 10 && scorePlayer == 1 {
-                scorePlayer = 11;
-            }
-            scorePlayer = scorePlayer + cardValue
             pscrLbl.text = "\(scorePlayer)"
         }
     }
@@ -230,7 +235,7 @@ class GameViewController: UIViewController {
             return 8;
         case 29, 30, 31, 32:
             return 9;
-        case 31..<48:
+        case 31..<49:
             return 10;
         case 49, 50, 51, 52:
             return 1;
