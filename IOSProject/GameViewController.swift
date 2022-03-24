@@ -17,8 +17,9 @@ class GameViewController: UIViewController {
     @IBOutlet weak var pscrLbl: UILabel!
     
     @IBOutlet weak var startBtn: UIButton!
-    
-    
+    @IBOutlet weak var hitBtn: UIButton!
+    @IBOutlet weak var stayBtn: UIButton!
+        
     @IBOutlet weak var hcard1: UIImageView!
     @IBOutlet weak var hcard2: UIImageView!
     @IBOutlet weak var hcard3: UIImageView!
@@ -34,6 +35,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var pcard6: UIImageView!
     
     var name: String?
+    var pontos: String?
     var hCardsArray : [UIImageView] = []
     var pCardsArray : [UIImageView] = []
     
@@ -45,27 +47,38 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (name != nil) {
+        if name != nil {
             pnameLbl.text = name
         }
-        
-
-        pptsLbl.text = "0"
-        
-        hscrLbl.text = "0"
+        if pontos != nil {
+            pptsLbl.text = pontos
+            let ptos = Int(pontos!) ?? 0
+            pontsPlayer = ptos
+        } else {
+            hscrLbl.text = "0"
+        }
+               
         pscrLbl.text = "0"
         
         hCardsArray = [ hcard1, hcard2, hcard3, hcard4, hcard5, hcard6]
         pCardsArray = [ pcard1, pcard2, pcard3, pcard4, pcard5, pcard6]
- 
     }
     
+    @IBAction func creditBtn(_ sender: UIButton) {
+        let controller = storyboard?.instantiateViewController(identifier: "CreditViewController") as! CreditViewController       
+        controller.pname = pnameLbl.text
+        controller.ppts = pptsLbl.text
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true, completion:nil)
+    }
     
    /*
         When the start button is pressed, randomize entries in card array, and the 2 house cards are shown (based on the 1st 2 entries in the array) and the first 2 player cards are shown.
      */
     @IBAction func startBtn(_ sender: UIButton) {
         startBtn.isHidden = true
+        hitBtn.isHidden = false
+        stayBtn.isHidden = false
         var number = 0
         while number < 4 {
             let card = Int.random(in: 1...52)
@@ -165,6 +178,8 @@ class GameViewController: UIViewController {
      */
     func reset() {
         startBtn.isHidden = false
+        hitBtn.isHidden = true
+        stayBtn.isHidden = true
         
         hscrLbl.text = "0"
         pscrLbl.text = "0"
@@ -196,23 +211,22 @@ class GameViewController: UIViewController {
     }
        
     func calcScore(cardValue: Int, typePlayer: String ) {
+        var value = cardValue
         if typePlayer == "H" {
-            if cardValue == 1 {
+            if value == 1 {
                 if ( scoreHome <= 10)  {
-                    scoreHome = scoreHome + 11
+                    value = 11
                 }
-            } else {
-                scoreHome = scoreHome + cardValue
             }
+            scoreHome = scoreHome + value
             hscrLbl.text = "\(scoreHome)"
         } else {
-            if cardValue == 1 {
+            if value == 1 {
                 if ( scorePlayer <= 10)  { 
-                    scorePlayer = scorePlayer + 11
+                    value = 11
                 }
-            } else {
-                scorePlayer = scorePlayer + cardValue
             }
+            scorePlayer = scorePlayer + value
             pscrLbl.text = "\(scorePlayer)"
         }
     }

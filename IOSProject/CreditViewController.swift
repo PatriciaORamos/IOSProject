@@ -8,14 +8,36 @@
 import UIKit
 
 class CreditViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var pNameLbl: UILabel!
+    @IBOutlet weak var pptsLbl: UILabel!
+    
+    var pname: String?
+    var ppts: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if pname != nil {
+            pNameLbl.text = pname
+        }
+        if ppts != nil {
+            pptsLbl.text = ppts
+        } else {
+            pptsLbl.text = "0"
+        }
+        
     }
     
-
+    @IBAction func goBackBtn(_ sender: UIButton) {
+        let controller = storyboard?.instantiateViewController(identifier: "GameViewController") as! GameViewController
+        controller.name = pNameLbl.text
+        controller.pontos = pptsLbl.text
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true, completion:nil)
+    }
+    
     /*
     // MARK: - Navigation
 
