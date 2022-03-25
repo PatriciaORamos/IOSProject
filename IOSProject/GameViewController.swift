@@ -129,14 +129,14 @@ class GameViewController: UIViewController {
     func bust(){
         if scoreHome > 21 {
             let alert = UIAlertController(title: "YOU WIN", message: "Congrats, home BUST...", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
+            alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
             self.present(alert, animated: true, completion: nil)
             //If the house score is > 21, the house busts and the player is awarded 50pts.
             pontsPlayer = pontsPlayer + 50
         }
         if scorePlayer > 21 {
             let alert = UIAlertController(title: "YOU LOSE", message: "Try again, you BUST..", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
+            alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
             self.present(alert, animated: true, completion: nil)
             
             //If the player busts or the house score is >= player score (without busting), 50pts is deducted from the player score.
@@ -145,14 +145,14 @@ class GameViewController: UIViewController {
         
         if scoreHome == 21 {
             let alert = UIAlertController(title: "YOU LOSE", message: "Try again, Home BLACKJACK...", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
+            alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
             self.present(alert, animated: true, completion: nil)
             pontsPlayer = pontsPlayer - 50
         }
         
         if scorePlayer == 21 {
             let alert = UIAlertController(title: "YOU WIN - BLACKJACK", message: "Congratulation...", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
+            alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
             self.present(alert, animated: true, completion: nil)
             pontsPlayer = pontsPlayer + 50
         }
@@ -163,7 +163,7 @@ class GameViewController: UIViewController {
     func scoreHomeVsScorePlayer(){
         if ( scoreHome <= 21 && scoreHome >= scorePlayer ) {
             let alert = UIAlertController(title: "YOU LOSE", message: "Try again, home has score >= you ...", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
+            alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
             self.present(alert, animated: true, completion: nil)
             //If the player busts or the house score is >= player score (without busting), 50pts is deducted from the player score.
             pontsPlayer = pontsPlayer - 50
