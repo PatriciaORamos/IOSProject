@@ -161,7 +161,7 @@ class GameViewController: UIViewController {
 
     
     func scoreHomeVsScorePlayer(){
-        if ( scoreHome <= 21 && scoreHome >= scorePlayer ) {
+        if ( scoreHome < 21 && scoreHome >= scorePlayer ) {
             let alert = UIAlertController(title: "YOU LOSE", message: "Try again, home has score >= you ...", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: { action in self.reset()} ))
             self.present(alert, animated: true, completion: nil)
